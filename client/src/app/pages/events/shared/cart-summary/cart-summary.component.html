@@ -1,0 +1,40 @@
+<div class="text-lg font-bold">Order Summary</div>
+<div class="pt-4">
+  <ng-template ngFor let-cartItem [ngForOf]="cartSummary?.cartItems">
+    <div class="flex">
+      <span class="w-8/12">
+        {{cartItem.quantity}}x {{cartItem.itemTitle}}
+      </span>
+      <div class="w-4/12 flex flex-wrap justify-end">
+        <span>
+          {{cartItem.amount | currency}}
+        </span>
+      </div>
+    </div>
+  </ng-template>
+</div>
+<nz-divider></nz-divider>
+<div class="pt-1">
+  <div class="flex">
+    <span class="w-8/12">Subtotal</span>
+    <span class="w-4/12 flex flex-wrap justify-end">{{cartSummary?.subtotalAmount | currency}}</span>
+  </div>
+  <div class="flex">
+    <span class="w-8/12">Tax</span>
+    <span class="w-4/12 flex flex-wrap justify-end">{{cartSummary?.taxAmount | currency}}</span>
+  </div>
+</div>
+<nz-divider></nz-divider>
+<div class="flex font-bold">
+  <span class="w-8/12">Total</span>
+  <span class="w-4/12 flex flex-wrap justify-end">{{cartSummary?.totalAmount | currency}}</span>
+</div>
+<div class="promo-code pt-4 text-blue-600">
+  <a (click)="showCodeBox = true">Have a promo code?</a>
+</div>
+<div *ngIf="showCodeBox">
+  <div class="flex">
+    <input nz-input placeholder="Promo Code" nzSize="large" [(ngModel)]="promoCode" />
+    <button class="apply-button" nz-button nzType="default">Apply</button>
+  </div>
+</div>

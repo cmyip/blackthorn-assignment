@@ -1,0 +1,24 @@
+<div class="title">
+  <span class="font-bold">{{cartItem.title}}</span>
+</div>
+<div class="description">
+  <span class="font-normal">{{cartItem.description}}</span>
+</div>
+<div class="subtext-indicator pt-4">
+  <span class="font-bold">I want to donate</span>
+</div>
+<div class="price-selector">
+  <div class="chip-selector">
+    <div class="chip-item"
+         *ngFor="let amountOption of amountOptions"
+         [ngClass]="{ 'selected': amountOption.amount == donationAmount }"
+         (click)="onAmountClick(amountOption)">
+      {{ amountOption.amount | currency:'USD': 'symbol':'0.0-0' }}
+    </div>
+    <div class="other-amount">
+      <nz-input-group nzPrefix="$">
+        <input type="number" nz-input placeholder="Enter Amount" [(ngModel)]="donationAmount" (ngModelChange)="onAmountChange($event)" />
+      </nz-input-group>
+    </div>
+  </div>
+</div>

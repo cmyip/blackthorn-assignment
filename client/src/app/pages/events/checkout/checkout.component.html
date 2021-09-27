@@ -1,0 +1,30 @@
+<div class="cart-layout h-full">
+  <nz-page-header
+    class="site-page-header"
+    (nzBack)="onBack()"
+    nzBackIcon
+    [nzTitle]="eventName"
+  ></nz-page-header>
+  <div class="flex space-x-4 justify-center pt-4">
+    <nz-card class="flex-none w-6/12">
+      <ng-template [ngIf]="isLoading">
+        <nz-skeleton></nz-skeleton>
+      </ng-template>
+      <template #itemsContainer></template>
+    </nz-card>
+    <div class="flex-none w-4/12">
+      <nz-card>
+        <ng-template [ngIf]="isLoading">
+          <nz-skeleton></nz-skeleton>
+        </ng-template>
+        <ng-template [ngIf]="!isLoading">
+          <app-cart-summary [cartSummary]="cartSummary$ | async"></app-cart-summary>
+        </ng-template>
+      </nz-card>
+      <div class="button-container pt-4">
+        <button nz-button nzSize="large" nzType="primary" nzBlock>Checkout</button>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="flex">
+  <div class="img-side w-2/12">
+    <img [src]="cartItem.imgUrl" />
+  </div>
+  <div class="details-side w-9/12 pl-4">
+    <div class="title">
+      <span class="font-bold">{{cartItem.title}}</span>
+    </div>
+    <div class="description">
+      <span class="font-normal">{{cartItem.description}}</span>
+    </div>
+    <div class="price-indicator pt-4">
+      <span class="font-bold" *ngIf="cartItem.price == 0">Free</span>
+      <span class="font-bold" *ngIf="cartItem.price > 0">{{ cartItem.price | currency: 'USD': 'symbol':'0.2-2' }}</span>
+      <nz-input-number class="ml-4" (ngModelChange)="onQuantityChange($event)" [(ngModel)]="quantityValue" [nzMin]="0" [nzMax]="10" [nzStep]="1"></nz-input-number>
+    </div>
+  </div>
+</div>
