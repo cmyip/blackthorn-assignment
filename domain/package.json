@@ -1,0 +1,8 @@
+{
+  "name": "events-domain",
+  "version": "0.0.1",
+  "description": "handles events business logics",
+  "dependencies": {
+    "express-validator": "^6.12.2"
+  }
+}

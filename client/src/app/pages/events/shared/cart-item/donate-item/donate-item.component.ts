@@ -29,16 +29,20 @@ export class DonateItemComponent extends CartItemComponent implements OnInit {
   donationAmount: number;
   onAmountClick(amountItem): void {
     this.donationAmount = amountItem.amount;
-    this.onAmountChange();
+    this.onAmountChange(amountItem.amount);
   }
 
   ngOnInit(): void {
+    this.getCurrentAmount();
   }
 
-  onAmountChange(): void {
+  onAmountChange(amount): void {
     setTimeout(() => {
       this.cartService.updateCartQuantity(this.cartItem.id, 1, this.donationAmount);
     }, 100);
   }
 
+  getCurrentAmount(): void {
+    this.donationAmount = this.cartService.getCartAmountById(this.cartItem.id);
+  }
 }

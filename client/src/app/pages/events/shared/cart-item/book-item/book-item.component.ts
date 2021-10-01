@@ -8,9 +8,8 @@ import {CartItemComponent} from "@approot/pages/events/shared/cart-item/cart-ite
   styleUrls: ['./book-item.component.scss']
 })
 export class BookItemComponent extends CartItemComponent implements OnInit {
-  quantityValue = 0;
-
   ngOnInit(): void {
+    super.ngOnInit();
   }
 
 }

@@ -1,7 +1,7 @@
 
 export const REPOSITORY_TYPES = {
-    IUserRepository: Symbol.for("IUserRepository"),
-    UserEntity: Symbol.for("Repository<UserEntity>")
+    IProductRepository: Symbol.for("IProductRepository"),
+    ProductEntity: Symbol.for("Repository<ProductEntity>")
 };
 
 export const MIDDLEWARE_TYPES = {
@@ -11,4 +11,5 @@ export const MIDDLEWARE_TYPES = {
 
 export const SEEDER_TYPES = {
     UserSeeder: Symbol.for("UserSeeder"),
+    ProductSeeder: Symbol.for("ProductSeeder"),
 };

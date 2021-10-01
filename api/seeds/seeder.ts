@@ -1,9 +1,8 @@
 import container from "../src/ioc-config/config";
-import {UserSeed} from "./user.seed";
-import {interfaces} from "inversify";
 import {SEEDER_TYPES} from "../src/ioc-config/types";
 import bindRepositories from "../src/ioc-config/repositories.bind";
 import { createConnection } from "typeorm";
+import {ProductSeed} from "./product.seed";
 
 export class Seeder {
     public async configure() {
@@ -13,11 +12,11 @@ export class Seeder {
     }
 
     public async seedAll() {
-        const userSeeder = container.get<UserSeed>(SEEDER_TYPES.UserSeeder);
-        await userSeeder.run();
+        const productSeeder = container.get<ProductSeed>(SEEDER_TYPES.ProductSeeder);
+        await productSeeder.run();
     }
 
     private bindSeeders() {
-        container.bind<UserSeed>(SEEDER_TYPES.UserSeeder).to(UserSeed).inSingletonScope();
+        container.bind<ProductSeed>(SEEDER_TYPES.ProductSeeder).to(ProductSeed).inSingletonScope();
     }
 }

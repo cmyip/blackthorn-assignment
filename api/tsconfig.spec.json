@@ -17,7 +17,7 @@
                 "src/types/*"
             ]
         },
-        "types": ["reflect-metadata", "node"],
+        "types": ["jest", "node"],
 
     },
     "include": [

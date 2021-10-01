@@ -21,4 +21,7 @@ export class CartSummaryComponent implements OnInit, OnChanges {
     console.log(changes);
   }
 
+  onApplyClick(): void {
+
+  }
 }

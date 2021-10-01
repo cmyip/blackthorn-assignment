@@ -3,10 +3,8 @@ import bodyParser from "body-parser";
 import { InversifyExpressServer } from "inversify-express-utils";
 // Controllers (route handlers)
 import { createConnection } from "typeorm";
-import "./controllers/auth.controller";
-import "./controllers/user.controller";
+import "./controllers/product.controller";
 import container from "./ioc-config/config";
-import bindMiddlewares from "./ioc-config/middleware.bind";
 import bindRepositories from "./ioc-config/repositories.bind";
 import { corsMiddleware } from "./middlewares/cors";
 import logger from "./utils/logger";
@@ -15,7 +13,7 @@ import CONFIG from "./config";
 async function createApp() {
     await createConnection();
     await bindRepositories(container);
-    await bindMiddlewares(container);
+    // await bindMiddlewares(container);
 
     const baseApi = CONFIG.BASE_API;
     const server = new InversifyExpressServer(
@@ -26,23 +24,10 @@ async function createApp() {
         logger.info("database connection created");
         // Express configuration
         app.use(bodyParser.json());
-        app.use(bodyParser.urlencoded({extended: true}));
         app.use(corsMiddleware);
+        app.use(bodyParser.urlencoded({extended: true}));
     });
-    const app = server.build();
-
-    // create server
-    app.listen(CONFIG.PORT, () => {
-        logger.info(`Server running at http://localhost:${CONFIG.PORT}`);
-    });
-    // await bindControllers();
+    return server.build();
 }
 
-(async () => {
-    try {
-        await createApp();
-
-    } catch (e) {
-        console.log(e.message);
-    }
-})();
+export default createApp;

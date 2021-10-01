@@ -34,7 +34,7 @@
 </div>
 <div *ngIf="showCodeBox">
   <div class="flex">
-    <input nz-input placeholder="Promo Code" nzSize="large" [(ngModel)]="promoCode" />
-    <button class="apply-button" nz-button nzType="default">Apply</button>
+    <input class="mr-4" nz-input placeholder="Promo Code" nzSize="large" [(ngModel)]="promoCode" />
+    <button class="apply-button" nz-button nzType="default" (click)="onApplyClick()">Apply</button>
   </div>
 </div>

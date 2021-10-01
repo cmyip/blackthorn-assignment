@@ -43,6 +43,7 @@ export class CartMockService implements CartService {
   cartSummary$ = new BehaviorSubject<CartSummaryDto>(null);
   catalogItems$ = new BehaviorSubject<CartItemDto[]>([]);
   cartIsLoading$ = new BehaviorSubject(false);
+  cartSummaryIsLoading$ = new BehaviorSubject(false);
 
   static futureDays(days): Date {
     const currentDate = new Date();
@@ -64,6 +65,7 @@ export class CartMockService implements CartService {
   }
 
   updateCartQuantity(itemId: number, quantity: number, amount?: number): Promise<CartSummaryDto> {
+    this.cartSummaryIsLoading$.next(true);
     return new Promise((accept, reject) => {
       const currentCart = this.cartSummary$.value;
 
@@ -105,8 +107,14 @@ export class CartMockService implements CartService {
       currentCart.taxAmount = totalAmount * 0.10;
       currentCart.totalAmount = currentCart.subtotalAmount + currentCart.taxAmount;
       console.log(currentCart);
-      this.cartSummary$.next(currentCart);
-      accept(currentCart);
+      localStorage.setItem(LocalStorageConstants.CART_SUMMARY, JSON.stringify(currentCart));
+      localStorage.setItem(LocalStorageConstants.CART_CODE, currentCart.cartCode);
+
+      setTimeout(() => {
+        this.cartSummaryIsLoading$.next(false);
+        this.cartSummary$.next(currentCart);
+        accept(currentCart);
+      });
     });
   }
 
@@ -139,5 +147,15 @@ export class CartMockService implements CartService {
       this.getCartByCode(existingCartCode);
     }
     return Promise.resolve([true, null]);
+  }
+
+  getCartQuantityById(id: number): number {
+    const currentItem = this.cartSummary$.value.cartItems.find(i => i.itemId == id);
+    return currentItem && currentItem.quantity;
+  }
+
+  getCartAmountById(id: number): number {
+    const currentItem = this.cartSummary$.value.cartItems.find(i => i.itemId == id);
+    return currentItem && currentItem.amount;
   }
 }

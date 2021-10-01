@@ -16,6 +16,7 @@ export class CartItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.processCartItemText();
+    this.getCartQuantity();
   }
 
   processCartItemText(): void {
@@ -25,6 +26,10 @@ export class CartItemComponent implements OnInit {
   shouldTimeBeRed(): boolean {
     const diffDays = dayjs(this.cartItem.salesEndDate).diff(new Date(), 'day');
     return diffDays < 1;
+  }
+
+  getCartQuantity(): void {
+    this.quantityValue = this.cartService.getCartQuantityById(this.cartItem.id);
   }
 
   public onQuantityChange($event): void {

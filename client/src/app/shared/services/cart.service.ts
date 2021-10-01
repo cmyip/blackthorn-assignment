@@ -13,4 +13,6 @@ export abstract class CartService {
   abstract updateCartQuantity(itemId: number, quantity: number, amount?: number): Promise<CartSummaryDto>;
   abstract loadCart(): Promise<[boolean, string?]>;
   abstract createCart(): Promise<[boolean, string?]>;
+  abstract getCartQuantityById(id: number): number;
+  abstract getCartAmountById(id: number): number;
 }
