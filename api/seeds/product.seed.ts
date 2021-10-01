@@ -9,7 +9,7 @@ export class ProductSeed implements ISeeder {
     defaultProducts = [
         {
             id: 1,
-            is_active: true,
+            isActive: true,
             title: "Free Ticket",
             description: "Free ticket for anyone to make a valuable contribution towards our future online events programme. Thank You",
             itemType: ProductTypeConstants.FreeTicket,
@@ -19,7 +19,7 @@ export class ProductSeed implements ISeeder {
         },
         {
             id: 2,
-            is_active: true,
+            isActive: true,
             title: "Alumni VIP Ticket",
             description: "This livestream will broadcast via a private YouTube link that will be sent to ticket purchasers an hour prior to showtime",
             itemType: ProductTypeConstants.AlumniTicket,
@@ -29,14 +29,14 @@ export class ProductSeed implements ISeeder {
         },
         {
             id: 3,
-            is_active: true,
+            isActive: true,
             title: "Donate",
             description: "Access to arts is vital. Pay what you can.",
             itemType: ProductTypeConstants.Donation,
         },
         {
             id: 4,
-            is_active: true,
+            isActive: true,
             title: "Book: Good Strategy - Bad Strategy",
             description: "Learn from the experts of business process management",
             itemType: ProductTypeConstants.Book,

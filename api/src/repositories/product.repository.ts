@@ -16,7 +16,7 @@ export class ProductRepository extends BaseRepository<ProductEntity> implements 
 
     getActiveProducts(saleEndDate: Date): Promise<ProductEntity[]> {
         return this.productRepository.find({
-            where: {is_active: true}
+            where: {isActive: true}
         });
     }
 }

@@ -7,7 +7,7 @@ export class ProductEntity extends CoreEntity {
     title: string;
 
     @Column()
-    is_active: boolean;
+    isActive: boolean;
 
     @Column()
     description: string;

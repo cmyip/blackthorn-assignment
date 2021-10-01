@@ -17,6 +17,9 @@ export const MESSAGE = {
         CANNOT_CREATE_PRODUCT: "Cannot create product",
         CANNOT_UPDATE_PRODUCT: "Cannot update product"
     },
+    REQUEST: {
+        BAD_REQUEST: "Bad request"
+    },
     PERMISSION: {
         EXIST: "Quyền đã tồn tại"
     }

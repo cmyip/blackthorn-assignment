@@ -12,7 +12,7 @@ import {ProductItem} from "@approot/shared/services/dtos/product.item";
 import {NzDividerComponent} from "ng-zorro-antd/divider";
 import {CartItemComponent} from "@approot/pages/events/shared/cart-item/cart-item.component";
 import {CartItemFactory} from "@approot/pages/events/shared/cart-item/cart-item.factory";
-import {CartSummaryDto} from "@approot/shared/services/dtos/cart-summary.dto";
+import {CartDto} from "@approot/shared/services/dtos/cart.dto";
 
 @Component({
   selector: 'app-checkout',
@@ -26,7 +26,7 @@ export class CheckoutComponent implements OnInit {
   componentRef: ComponentRef<CartItemComponent>[] = [];
   dividerRef: ComponentRef<NzDividerComponent>[] = [];
   cartItems$: Observable<ProductItem[]>;
-  cartSummary$: Observable<CartSummaryDto>;
+  cartSummary$: Observable<CartDto>;
   constructor(private cartService: CartService, private resolver: ComponentFactoryResolver) { }
 
   async ngOnInit(): Promise<void> {

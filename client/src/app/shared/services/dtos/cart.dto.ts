@@ -1,13 +1,13 @@
 import {ProductItem} from "@approot/shared/services/dtos/product.item";
 
-export interface CartSummaryDto {
+export interface CartDto {
   cartCode: string;
   promoCode: string;
   subtotalAmount: number;
   taxAmount: number;
   totalAmount: number;
   cartItems: {
-    itemId: number,
+    productId: number,
     itemTitle: string,
     quantity: number,
     amount: number,

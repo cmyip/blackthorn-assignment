@@ -1,7 +1,7 @@
 import {CartService} from '@approot/shared/services/cart.service';
 import {ProductItem} from '@approot/shared/services/dtos/product.item';
 import {CartItemTypeEnum} from '@approot/shared/services/enums/cart-item-type.enum';
-import {CartSummaryDto} from '@approot/shared/services/dtos/cart-summary.dto';
+import {CartDto} from '@approot/shared/services/dtos/cart.dto';
 import {BehaviorSubject} from "rxjs";
 import {LocalStorageConstants} from "@approot/shared/constants/local-storage.constants";
 
@@ -40,7 +40,7 @@ export class CartMockService implements CartService {
       imgUrl: '/assets/images/book-sample.png'
     }
   ];
-  cartSummary$ = new BehaviorSubject<CartSummaryDto>(null);
+  cartSummary$ = new BehaviorSubject<CartDto>(null);
   productList$ = new BehaviorSubject<ProductItem[]>([]);
   productsListLoading$ = new BehaviorSubject(false);
   cartSummaryIsLoading$ = new BehaviorSubject(false);
@@ -64,12 +64,12 @@ export class CartMockService implements CartService {
     });
   }
 
-  updateCartQuantity(itemId: number, quantity: number, amount?: number): Promise<CartSummaryDto> {
+  updateCartQuantity(itemId: number, quantity: number, amount?: number): Promise<CartDto> {
     this.cartSummaryIsLoading$.next(true);
     return new Promise((accept, reject) => {
       const currentCart = this.cartSummary$.value;
 
-      const cartItemIndex = currentCart.cartItems.findIndex(c => c.itemId === itemId);
+      const cartItemIndex = currentCart.cartItems.findIndex(c => c.productId === itemId);
       const salesItem = this.productList$.value.find(c => c.id == itemId);
       if (!salesItem) {
         console.error(`Item ID(${itemId} cannot be found in catalog`);
@@ -118,7 +118,7 @@ export class CartMockService implements CartService {
     });
   }
 
-  getCartByCode(cartCode: string): Promise<CartSummaryDto> {
+  getCartByCode(cartCode: string): Promise<CartDto> {
     return new Promise((accept, reject) => {
       const storageDataString = localStorage.getItem(LocalStorageConstants.CART_SUMMARY);
       const storageDataObj = JSON.parse(storageDataString);
@@ -150,12 +150,12 @@ export class CartMockService implements CartService {
   }
 
   getCartQuantityById(id: number): number {
-    const currentItem = this.cartSummary$.value.cartItems.find(i => i.itemId == id);
+    const currentItem = this.cartSummary$.value.cartItems.find(i => i.productId == id);
     return currentItem && currentItem.quantity;
   }
 
   getCartAmountById(id: number): number {
-    const currentItem = this.cartSummary$.value.cartItems.find(i => i.itemId == id);
+    const currentItem = this.cartSummary$.value.cartItems.find(i => i.productId == id);
     return currentItem && currentItem.amount;
   }
 }

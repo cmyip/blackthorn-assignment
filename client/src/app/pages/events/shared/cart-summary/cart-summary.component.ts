@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {CartSummaryDto} from "@approot/shared/services/dtos/cart-summary.dto";
+import {CartDto} from "@approot/shared/services/dtos/cart.dto";
 
 @Component({
   selector: 'app-cart-summary',
@@ -7,7 +7,7 @@ import {CartSummaryDto} from "@approot/shared/services/dtos/cart-summary.dto";
   styleUrls: ['./cart-summary.component.scss']
 })
 export class CartSummaryComponent implements OnInit, OnChanges {
-  @Input() cartSummary: CartSummaryDto;
+  @Input() cartSummary: CartDto;
   @Output() onApplyPromoCode = new EventEmitter();
   showCodeBox = false;
   promoCode = null;
