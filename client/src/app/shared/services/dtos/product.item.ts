@@ -1,6 +1,6 @@
 import {CartItemTypeEnum} from '@approot/shared/services/enums/cart-item-type.enum';
 
-export interface CartItemDto {
+export interface ProductItem {
   id: number;
   title: string;
   description: string;

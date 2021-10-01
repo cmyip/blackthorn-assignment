@@ -4,64 +4,30 @@ import {CartItemTypeEnum} from '@approot/shared/services/enums/cart-item-type.en
 import {CartSummaryDto} from '@approot/shared/services/dtos/cart-summary.dto';
 import {BehaviorSubject} from "rxjs";
 import {LocalStorageConstants} from "@approot/shared/constants/local-storage.constants";
+import {ProductsServiceProxy} from "@approot/shared/services/service-proxies/products.service-proxy";
+import {Injectable} from "@angular/core";
 
-export class CartMockService implements CartService {
-  catalogItems = [
-    {
-      id: 1,
-      title: 'Free Ticket',
-      description: 'Free ticket for anyone to make a valuable contribution towards our future online events programme. Thank You',
-      itemType: CartItemTypeEnum.FreeTicket,
-      numberAvailable: 3,
-      price: 0,
-      salesEndDate: CartMockService.futureHours(1)
-    },
-    {
-      id: 2,
-      title: 'Alumni VIP Ticket',
-      description: 'This livestream will broadcast via a private YouTube link that will be sent to ticket purchasers an hour prior to showtime',
-      itemType: CartItemTypeEnum.AlumniTicket,
-      numberAvailable: 4,
-      price: 3500,
-      salesEndDate: CartMockService.futureDays(5)
-    },
-    {
-      id: 3,
-      title: 'Donate',
-      description: 'Access to arts is vital. Pay what you can.',
-      itemType: CartItemTypeEnum.Donation,
-    },
-    {
-      id: 4,
-      title: 'Book: Good Strategy - Bad Strategy',
-      description: 'Learn from the experts of business process management',
-      itemType: CartItemTypeEnum.Book,
-      price: 17.99,
-      imgUrl: '/assets/images/book-sample.png'
-    }
-  ];
+@Injectable()
+export class CartApiService implements CartService {
   cartSummary$ = new BehaviorSubject<CartSummaryDto>(null);
   productList$ = new BehaviorSubject<ProductItem[]>([]);
   productsListLoading$ = new BehaviorSubject(false);
   cartSummaryIsLoading$ = new BehaviorSubject(false);
 
-  static futureDays(days): Date {
-    const currentDate = new Date();
-    currentDate.setDate(currentDate.getDate() + days);
-    return currentDate;
+  constructor(private productsProxy: ProductsServiceProxy) {
   }
-  static futureHours(hours): Date {
-    const currentDate = new Date();
-    currentDate.setHours(currentDate.getHours() + hours);
-    return currentDate;
-  }
-  refreshProducts(): Promise<[boolean, string?]> {
-    return new Promise((accept, reject) => {
-      setTimeout(() => {
-        accept([true, null]);
-        this.productList$.next(this.catalogItems);
-      }, 2000);
-    });
+
+  async refreshProducts(): Promise<[boolean, string?]> {
+    this.productsListLoading$.next(true);
+    try {
+      const products = await this.productsProxy.getProducts();
+      this.productList$.next(products);
+    } catch (exception) {
+      console.error(exception);
+      return [false, exception.getMessage()];
+    }
+    this.productsListLoading$.next(false);
+    return [true, ''];
   }
 
   updateCartQuantity(itemId: number, quantity: number, amount?: number): Promise<CartSummaryDto> {

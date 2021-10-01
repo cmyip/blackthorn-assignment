@@ -1,7 +1,7 @@
 import {Component, ComponentFactory, ComponentFactoryResolver, Input, OnInit} from '@angular/core';
 import {CartService} from "@approot/shared/services/cart.service";
 import * as dayjs from "dayjs";
-import {CartItemDto} from "@approot/shared/services/dtos/cart-item.dto";
+import {ProductItem} from "@approot/shared/services/dtos/product.item";
 
 @Component({
   selector: 'app-cart-item',
@@ -9,7 +9,7 @@ import {CartItemDto} from "@approot/shared/services/dtos/cart-item.dto";
   styleUrls: ['./cart-item.component.scss']
 })
 export class CartItemComponent implements OnInit {
-  @Input() cartItem: CartItemDto;
+  @Input() cartItem: ProductItem;
   constructor(protected cartService: CartService) { }
   public cartEndTimeText = '';
   quantityValue = 0;

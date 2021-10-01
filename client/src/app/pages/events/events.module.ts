@@ -7,7 +7,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import {NzPageHeaderModule} from 'ng-zorro-antd/page-header';
 import {NzCardModule} from 'ng-zorro-antd/card';
 import {CartService} from '@approot/shared/services/cart.service';
-import {CartMockService} from '@approot/shared/services/cart-mock.service';
+import {CartApiService} from '@approot/shared/services/cart-api.service';
 import {NzSkeletonModule} from "ng-zorro-antd/skeleton";
 import { BookItemComponent } from './shared/cart-item/book-item/book-item.component';
 import {CartItemComponent} from "@approot/pages/events/shared/cart-item/cart-item.component";
@@ -41,7 +41,7 @@ import {NzButtonModule} from "ng-zorro-antd/button";
   providers: [
     {
       provide: CartService,
-      useClass: CartMockService
+      useClass: CartApiService
     }
   ]
 })

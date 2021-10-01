@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CartItemDto} from "@approot/shared/services/dtos/cart-item.dto";
+import {ProductItem} from "@approot/shared/services/dtos/product.item";
 import {CartItemComponent} from "@approot/pages/events/shared/cart-item/cart-item.component";
 
 @Component({

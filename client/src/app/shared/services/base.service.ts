@@ -24,8 +24,16 @@ export class BaseService {
     this.httpHeaders = new HttpHeaders(this.httpOptions);
   }
 
-  private static extractData(res: HttpResponse<ResponseApi<any>>): object {
-    return res || {};
+  private static extractData(response: HttpResponse<ResponseApi<any>>): object {
+    const responseData: any = response;
+    console.log(responseData)
+    if (!responseData) {
+      return {};
+    }
+    if (!responseData.success) {
+      throw new Error(responseData.message);
+    }
+    return responseData.data;
   }
 
   get(uri: string, params?: HttpParams): Observable<any> {

@@ -21,6 +21,9 @@ export class ProductEntity extends CoreEntity {
     @Column({ type: "decimal", nullable: true})
     price: number;
 
+    @Column({ nullable: true })
+    imgUrl?: string;
+
     @Column({nullable: true})
     salesEndDate: Date;
 }

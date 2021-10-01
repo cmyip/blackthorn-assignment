@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import {CartService} from "@approot/shared/services/cart.service";
 import {BehaviorSubject, Observable} from "rxjs";
-import {CartItemDto} from "@approot/shared/services/dtos/cart-item.dto";
+import {ProductItem} from "@approot/shared/services/dtos/product.item";
 import {NzDividerComponent} from "ng-zorro-antd/divider";
 import {CartItemComponent} from "@approot/pages/events/shared/cart-item/cart-item.component";
 import {CartItemFactory} from "@approot/pages/events/shared/cart-item/cart-item.factory";
@@ -25,21 +25,21 @@ export class CheckoutComponent implements OnInit {
   @ViewChild('itemsContainer', { read: ViewContainerRef }) container;
   componentRef: ComponentRef<CartItemComponent>[] = [];
   dividerRef: ComponentRef<NzDividerComponent>[] = [];
-  cartItems$: Observable<CartItemDto[]>;
+  cartItems$: Observable<ProductItem[]>;
   cartSummary$: Observable<CartSummaryDto>;
   constructor(private cartService: CartService, private resolver: ComponentFactoryResolver) { }
 
   async ngOnInit(): Promise<void> {
     await this.refreshCartItems();
     await this.refreshOrderSummary();
-    this.cartItems$ = this.cartService.catalogItems$.asObservable();
+    this.cartItems$ = this.cartService.productList$.asObservable();
     this.cartSummary$ = this.cartService.cartSummary$;
   }
 
   async refreshCartItems(): Promise<void> {
     this.isLoading = true;
     this.resetItems();
-    await this.cartService.refreshItems();
+    await this.cartService.refreshProducts();
   }
 
   async refreshOrderSummary(): Promise<void> {
@@ -50,7 +50,7 @@ export class CheckoutComponent implements OnInit {
     if (this.container) {
       this.container.clear();
     }
-    this.cartService.catalogItems$
+    this.cartService.productList$
       .subscribe((items) => {
         if (items.length === 0) {
           return;
@@ -65,7 +65,7 @@ export class CheckoutComponent implements OnInit {
       });
   }
 
-  makeItemComponent(item: CartItemDto): void {
+  makeItemComponent(item: ProductItem): void {
     const factory = CartItemFactory.GetComponentByItemType(this.resolver, item);
     const component = this.container.createComponent(factory);
     component.instance.cartItem = item;

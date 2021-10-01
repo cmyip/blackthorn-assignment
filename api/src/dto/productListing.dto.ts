@@ -1,9 +1,9 @@
 
 export class ProductListingDto {
-    id: string;
-    title: string;
-    description: string;
-    itemType: number;
-    price?: number;
-    imgUrl?: string;
+    id: string = null;
+    title: string = null;
+    description: string = null;
+    itemType: number = null;
+    price?: number = null;
+    imgUrl?: string = null;
 }

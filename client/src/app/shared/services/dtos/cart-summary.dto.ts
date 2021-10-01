@@ -1,4 +1,4 @@
-import {CartItemDto} from "@approot/shared/services/dtos/cart-item.dto";
+import {ProductItem} from "@approot/shared/services/dtos/product.item";
 
 export interface CartSummaryDto {
   cartCode: string;
