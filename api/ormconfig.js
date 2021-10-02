@@ -8,6 +8,11 @@ module.exports = {
     charset: "utf8",
     driver: "postgres",
     ssl: !!process.env.DB_SSL,
+    extra: {
+        ssl: {
+            rejectUnauthorized: false,
+        },
+    },
     synchronize: process.env.NODE_ENV !== "production",
     entities:[
         "**/**.entity.ts"
