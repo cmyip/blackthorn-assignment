@@ -5,6 +5,8 @@ import { InversifyExpressServer } from "inversify-express-utils";
 import { createConnection } from "typeorm";
 import "./controllers/product.controller";
 import "./controllers/cart.controller";
+import "./controllers/attendee.controller";
+import "./controllers/event.controller";
 import container from "./ioc-config/config";
 import bindRepositories from "./ioc-config/repositories.bind";
 import { corsMiddleware } from "./middlewares/cors";

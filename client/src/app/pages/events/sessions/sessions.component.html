@@ -1,0 +1,159 @@
+<div class="cart-layout h-full">
+  <nz-page-header
+    *ngIf="currentStep == 1"
+    class="site-page-header"
+    (nzBack)="onBack()"
+    nzBackIcon
+    nzTitle="Back"
+  ></nz-page-header>
+  <div class="flex space-x-8 justify-center pt-4">
+    <div class="flex-none w-7/12">
+      <nz-steps [nzCurrent]="currentStep" nzSize="small">
+        <nz-step nzTitle="Tickets"></nz-step>
+        <nz-step nzTitle="Sessions"></nz-step>
+        <nz-step nzTitle="Payment"></nz-step>
+      </nz-steps>
+      <nz-card class="mt-4" *ngIf="isLoading$ | async">
+        <nz-skeleton></nz-skeleton>
+      </nz-card>
+      <div class="pt-4 space-y-6" *ngIf="currentStep == 1">
+        <h3>Please confirm attendee details as below:</h3>
+        <nz-card *ngFor="let attendee of attendeeList$ | async; let i = index">
+          <h3>
+            Attendee {{i + 1}} -
+            <span *ngIf="attendee.attendeeType == 'free_ticket'">Free Ticket</span>
+            <span *ngIf="attendee.attendeeType == 'vip_ticket'">VIP Alumni Ticket</span>
+          </h3>
+          <div class="flex">
+            <div class="w-6/12">
+              First Name
+            </div>
+            <div class="w-6/12">
+              {{attendee.firstName}}
+            </div>
+          </div>
+          <div class="flex">
+            <div class="w-6/12">
+              Last Name
+            </div>
+            <div class="w-6/12">
+              {{attendee.lastName}}
+            </div>
+          </div>
+          <div class="flex">
+            <div class="w-6/12">
+              Email Address
+            </div>
+            <div class="w-6/12">
+              {{attendee.email}}
+            </div>
+          </div>
+          <ng-template [ngIf]="attendee.attendeeType == 'vip_ticket'">
+            <div class="flex">
+              <div class="w-6/12">
+                Job title
+              </div>
+              <div class="w-6/12">
+                {{attendee.jobTitle}}
+              </div>
+            </div>
+            <div class="flex">
+              <div class="w-6/12">
+                Company
+              </div>
+              <div class="w-6/12">
+                {{attendee.company}}
+              </div>
+            </div>
+            <div class="flex">
+              <div class="w-6/12">
+                Country
+              </div>
+              <div class="w-6/12">
+                {{attendee.country}}
+              </div>
+            </div>
+          </ng-template>
+        </nz-card>
+      </div>
+
+      <div class="pt-4 space-y-6" *ngIf="currentStep == 2">
+        <h3>Thank you for your payment, your order is confirmed</h3>
+        <nz-card *ngFor="let attendee of attendeeList$ | async; let i = index">
+          <h3>
+            Attendee {{i + 1}} -
+            <span *ngIf="attendee.attendeeType == 'free_ticket'">Free Ticket</span>
+            <span *ngIf="attendee.attendeeType == 'vip_ticket'">VIP Alumni Ticket</span>
+          </h3>
+          <div class="flex">
+            <div class="w-6/12">
+              First Name
+            </div>
+            <div class="w-6/12">
+              {{attendee.firstName}}
+            </div>
+          </div>
+          <div class="flex">
+            <div class="w-6/12">
+              Last Name
+            </div>
+            <div class="w-6/12">
+              {{attendee.lastName}}
+            </div>
+          </div>
+          <div class="flex">
+            <div class="w-6/12">
+              Email Address
+            </div>
+            <div class="w-6/12">
+              {{attendee.email}}
+            </div>
+          </div>
+          <ng-template [ngIf]="attendee.attendeeType == 'vip_ticket'">
+            <div class="flex">
+              <div class="w-6/12">
+                Job title
+              </div>
+              <div class="w-6/12">
+                {{attendee.jobTitle}}
+              </div>
+            </div>
+            <div class="flex">
+              <div class="w-6/12">
+                Company
+              </div>
+              <div class="w-6/12">
+                {{attendee.company}}
+              </div>
+            </div>
+            <div class="flex">
+              <div class="w-6/12">
+                Country
+              </div>
+              <div class="w-6/12">
+                {{attendee.country}}
+              </div>
+            </div>
+          </ng-template>
+        </nz-card>
+      </div>
+    </div>
+    <div class="flex-none w-4/12">
+      <nz-card>
+        <ng-template [ngIf]="isLoading$| async">
+          <nz-skeleton></nz-skeleton>
+        </ng-template>
+        <ng-template [ngIf]="!(isLoading$ | async)">
+          <app-cart-summary [cartSummary]="cartSummary$ | async"></app-cart-summary>
+        </ng-template>
+      </nz-card>
+      <div class="button-container pt-4">
+        <button *ngIf="currentStep == 1"
+          nz-button nzSize="large" nzType="primary" nzBlock (click)="onPaymentClick()">Pay Now!</button>
+        <button *ngIf="currentStep == 2"
+                nz-button nzSize="large" nzType="primary" nzBlock (click)="onBackToEvent()">Back to Events</button>
+      </div>
+    </div>
+
+  </div>
+</div>

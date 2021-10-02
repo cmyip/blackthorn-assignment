@@ -1,0 +1,28 @@
+<div class="pt-4 p-4">
+  <h3 class="text-x1">Event Listing</h3>
+  <div class="event-list flex flex-row space-x-8 pt-4">
+    <ng-template [ngIf]="!(eventLoadComplete$ | async)">
+      <nz-card class="w-4/12" *ngFor="let i of [1,2,3]">
+        <nz-skeleton></nz-skeleton>
+      </nz-card>
+    </ng-template>
+    <ng-template [ngIf]="(eventLoadComplete$ | async)">
+      <ng-template ngFor let-eventInfo [ngForOf]="eventList$ | async" >
+        <nz-card class="w-4/12" nzHoverable [nzCover]="coverTemplate" [nzTitle]="eventInfo.title" (click)="onEventClick(eventInfo)">
+          <span>Description:</span>
+          <p [innerHTML]="eventInfo.description"></p>
+          <div class="pt-4">
+            Start Date: {{eventInfo.startDate | date}}
+          </div>
+          <div>
+            End Date: {{eventInfo.endDate | date}}
+          </div>
+        </nz-card>
+        <ng-template #coverTemplate>
+          <img alt="eventPicture" [src]="eventInfo.bannerImageUrl" />
+        </ng-template>
+      </ng-template>
+    </ng-template>
+  </div>
+
+</div>

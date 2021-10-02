@@ -43,6 +43,8 @@ export class DonateItemComponent extends CartItemComponent implements OnInit {
   }
 
   getCurrentAmount(): void {
-    this.donationAmount = this.cartService.getCartAmountById(this.cartItem.id);
+    this.cartSubscription = this.cartService.cartSummary$.subscribe(() => {
+      this.donationAmount = this.cartService.getCartAmountById(this.cartItem.id);
+    });
   }
 }

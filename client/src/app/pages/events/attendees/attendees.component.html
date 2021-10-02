@@ -1,0 +1,41 @@
+<div class="cart-layout h-full">
+  <nz-page-header
+    class="site-page-header"
+    (nzBack)="onBack()"
+    nzBackIcon
+    nzTitle="Back"
+  ></nz-page-header>
+  <div class="flex space-x-8 justify-center pt-4">
+    <div class="flex-none w-7/12">
+      <nz-steps [nzCurrent]="currentStep" nzSize="small">
+        <nz-step nzTitle="Tickets"></nz-step>
+        <nz-step nzTitle="Sessions"></nz-step>
+        <nz-step nzTitle="Payment"></nz-step>
+      </nz-steps>
+      <nz-card class="mt-4" *ngIf="isLoading$ | async">
+        <nz-skeleton></nz-skeleton>
+      </nz-card>
+      <div class="pt-4 space-y-6">
+        <form [formGroup]="attendeeListForm">
+          <template #formElementContainer></template>
+        </form>
+      </div>
+    </div>
+    <div class="flex-none w-4/12">
+      <nz-card>
+        <ng-template [ngIf]="isLoading$| async">
+          <nz-skeleton></nz-skeleton>
+        </ng-template>
+        <ng-template [ngIf]="!(isLoading$ | async)">
+          <app-cart-summary [cartSummary]="cartSummary$ | async"></app-cart-summary>
+        </ng-template>
+      </nz-card>
+      <div class="button-container pt-4">
+        <button
+          [disabled]="attendeeListForm.invalid"
+          nz-button nzSize="large" nzType="primary" nzBlock (click)="onReviewSessionClick()">Review Sessions</button>
+      </div>
+    </div>
+
+  </div>
+</div>

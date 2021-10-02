@@ -36,9 +36,9 @@ export class BaseService {
     return responseData.data;
   }
 
-  get(uri: string, params?: HttpParams): Observable<any> {
+  get(uri: string, params?: any): Observable<any> {
     return this.httpClient
-      .get(uri, {headers: this.httpHeaders, params})
+      .get(uri, {headers: this.httpHeaders, params })
       .pipe(
         map(BaseService.extractData),
       );
@@ -58,7 +58,7 @@ export class BaseService {
 
 
   // api put method
-  put(uri: string, data?: any, params?: HttpParams): Observable<any> {
+  put(uri: string, data?: any, params?: any): Observable<any> {
     return this.httpClient
       .put(uri, data, {
         headers: this.httpHeaders,

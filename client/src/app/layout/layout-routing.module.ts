@@ -8,14 +8,6 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: 'welcome',
-        loadChildren: () => import('@approot/pages/welcome/welcome.module').then(m => m.WelcomeModule)
-      },
-      {
-        path: 'user',
-        loadChildren: () => import('@approot/pages/user/user.module').then(m => m.UserModule)
-      },
-      {
         path: 'events',
         loadChildren: () => import('@approot/pages/events/events.module').then(m => m.EventsModule)
       },

@@ -3,38 +3,44 @@ import {Column, Entity, ManyToOne, OneToOne } from "typeorm";
 import {ProductEntity} from "./product.entity";
 import {CartEntity} from "./cart.entity";
 
-export enum AttendantType {
+export enum AttendeeType {
     FREE_TICKET = "free_ticket",
     VIP_TICKET = "vip_ticket"
 }
 
-@Entity("attendants", {orderBy: {id: "ASC"}})
-export class AttendantsEntity extends CoreEntity {
+@Entity("attendees", {orderBy: {id: "ASC"}})
+export class AttendeeEntity extends CoreEntity {
     @Column({
         type: "enum",
-        enum: AttendantType,
-        default: AttendantType.FREE_TICKET
+        enum: AttendeeType,
+        default: AttendeeType.FREE_TICKET
     })
-    attendantType: AttendantType;
+    attendeeType: AttendeeType;
 
     @ManyToOne(() => CartEntity, cart => cart.items)
     cart: CartEntity;
 
     @Column()
+    cartId: number;
+
+    @Column({ nullable: true })
     firstName?: string;
 
-    @Column()
+    @Column({ nullable: true })
     lastName?: string;
 
-    @Column()
+    @Column({ nullable: true })
     email?: string;
 
-    @Column()
+    @Column({ nullable: true })
     receiveCommunications?: boolean;
 
-    @Column()
-    phone?: string;
+    @Column({ nullable: true })
+    jobTitle?: string;
 
-    @Column()
+    @Column({ nullable: true })
+    country?: string;
+
+    @Column({ nullable: true })
     company?: string;
 }

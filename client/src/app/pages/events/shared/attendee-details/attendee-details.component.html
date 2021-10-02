@@ -1,0 +1,27 @@
+<nz-card class="mt-4">
+  <h2>Attendee {{attendeeNumber + 1}} - Free Ticket</h2>
+  <form [formGroup]="attendeeForm">
+    <div class="flex space-x-4 pt-4">
+      <input class="w-6/12" nz-input
+             [ngClass]="{'border-red-500': !attendeeForm.controls.firstName.valid && attendeeForm.controls.firstName.dirty}"
+             formControlName="firstName"
+             placeholder="First Name" />
+      <input class="w-6/12" nz-input
+             [ngClass]="{'border-red-500': !attendeeForm.controls.lastName.valid && attendeeForm.controls.lastName.dirty}"
+             formControlName="lastName"
+             placeholder="Last Name" />
+    </div>
+    <div class="flex space-x-4 pt-4">
+      <input nz-input placeholder="Email"
+             [ngClass]="{'border-red-500': !attendeeForm.controls.email.valid && attendeeForm.controls.email.dirty}"
+             formControlName="email" />
+    </div>
+    <div class="pt-4">
+      <h3>Would you like to receive the branded connections and other e-communications from us?</h3>
+      <nz-radio-group formControlName="receiveCommunications">
+        <label nz-radio [nzValue]="true">Yes</label>
+        <label nz-radio [nzValue]="false">No</label>
+      </nz-radio-group>
+    </div>
+  </form>
+</nz-card>

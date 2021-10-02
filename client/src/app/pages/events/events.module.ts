@@ -14,9 +14,16 @@ import {CartItemComponent} from "@approot/pages/events/shared/cart-item/cart-ite
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { DonateItemComponent } from './shared/cart-item/donate-item/donate-item.component';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { NzInputModule } from 'ng-zorro-antd/input';
 import {NzButtonModule} from "ng-zorro-antd/button";
+import { AttendeesComponent } from './attendees/attendees.component';
+import {NzStepsModule} from "ng-zorro-antd/steps";
+import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { AttendeeDetailsComponent } from './shared/attendee-details/attendee-details.component';
+import { VipDetailsComponent } from './shared/attendee-details/vip-details/vip-details.component';
+import { SessionsComponent } from './sessions/sessions.component';
+import { LobbyComponent } from './lobby/lobby.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +31,12 @@ import {NzButtonModule} from "ng-zorro-antd/button";
     CheckoutComponent,
     BookItemComponent,
     CartItemComponent,
-    DonateItemComponent
+    DonateItemComponent,
+    AttendeesComponent,
+    AttendeeDetailsComponent,
+    VipDetailsComponent,
+    SessionsComponent,
+    LobbyComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +48,10 @@ import {NzButtonModule} from "ng-zorro-antd/button";
     NzInputNumberModule,
     FormsModule,
     NzInputModule,
-    NzButtonModule
+    NzButtonModule,
+    NzStepsModule,
+    NzRadioModule,
+    ReactiveFormsModule
   ],
   providers: [
     {

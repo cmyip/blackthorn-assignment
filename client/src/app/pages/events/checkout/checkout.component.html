@@ -3,7 +3,7 @@
     class="site-page-header"
     (nzBack)="onBack()"
     nzBackIcon
-    [nzTitle]="eventName"
+    [nzTitle]="eventInfo?.title"
   ></nz-page-header>
   <div class="flex space-x-8 justify-center pt-4">
     <nz-card class="flex-none w-6/12">
@@ -22,7 +22,7 @@
         </ng-template>
       </nz-card>
       <div class="button-container pt-4">
-        <button nz-button nzSize="large" nzType="primary" nzBlock>Checkout</button>
+        <button nz-button nzSize="large" nzType="primary" nzBlock (click)="onCheckoutClick()">Checkout</button>
       </div>
     </div>
 

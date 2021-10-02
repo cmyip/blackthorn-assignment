@@ -8,7 +8,7 @@ import {ProductItem} from "@approot/shared/services/dtos/product.item";
 export class ProductsServiceProxy {
   constructor(private baseService: BaseService) { }
 
-  getProducts(): Promise<ProductItem[]> {
-    return this.baseService.get('/products').toPromise();
+  getProducts(eventId): Promise<ProductItem[]> {
+    return this.baseService.get('/products', {eventId}).toPromise();
   }
 }

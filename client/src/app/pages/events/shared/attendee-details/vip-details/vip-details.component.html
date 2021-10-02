@@ -1,0 +1,39 @@
+<nz-card class="mt-4">
+  <h2>Attendee {{attendeeNumber + 1}} - Alumni VIP Ticket</h2>
+  <form [formGroup]="attendeeForm">
+    <div class="flex space-x-4 pt-4">
+      <input class="w-6/12"
+             [ngClass]="{'border-red-500': !attendeeForm.controls.firstName.valid && attendeeForm.controls.firstName.dirty}"
+             formControlName="firstName"
+             nz-input placeholder="First Name" />
+      <input class="w-6/12"
+             [ngClass]="{'border-red-500': !attendeeForm.controls.lastName.valid && attendeeForm.controls.lastName.dirty}"
+             formControlName="lastName"
+             nz-input placeholder="Last Name" />
+    </div>
+    <div class="flex space-x-4 pt-4">
+      <input nz-input
+             [ngClass]="{'border-red-500': !attendeeForm.controls.email.valid && attendeeForm.controls.email.dirty}"
+             formControlName="email"
+             placeholder="Email" />
+    </div>
+    <div class="flex space-x-4 pt-4">
+      <input nz-input
+             [ngClass]="{'border-red-500': !attendeeForm.controls.jobTitle.valid && attendeeForm.controls.jobTitle.dirty}"
+             formControlName="jobTitle"
+             placeholder="Job Title" />
+    </div>
+    <div class="flex space-x-4 pt-4">
+      <input nz-input
+             [ngClass]="{'border-red-500': !attendeeForm.controls.company.valid && attendeeForm.controls.company.dirty}"
+             formControlName="company"
+             placeholder="Company" />
+    </div>
+    <div class="flex space-x-4 pt-4">
+      <input nz-input
+             [ngClass]="{'border-red-500': !attendeeForm.controls.country.valid && attendeeForm.controls.country.dirty}"
+             formControlName="country"
+             placeholder="Country" />
+    </div>
+  </form>
+</nz-card>

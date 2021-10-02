@@ -11,6 +11,7 @@ import {ProductListingDto} from "../dto/productListing.dto";
 import {param} from "express-validator";
 import {ICartManagerService} from "../services/i.cart-manager.service";
 import {CartEntity} from "../entities/cart.entity";
+import {CartStatusConstants} from "../../../domain/constants/cart-status.constants";
 
 
 @controller("/carts")
@@ -48,6 +49,20 @@ export class CartController {
         }
     }
 
+    @httpPost("/:code/checkout")
+    private async checkoutCart(@request() req: RequestCustom, @response() res: Response) {
+        try {
+            const { params } = req;
+            const { code } = params;
+            const cartItem = await this.cartManager.getCartByCode(code);
+            const resultingCart = await this.cartManager.updateCartStatus(cartItem, CartStatusConstants.CHECKED_OUT);
+            return ApiResponse.success(res, this.mapToDto(resultingCart), HTTP_CODE.SUCCESS, MESSAGE.SUCCESS);
+        } catch (ex) {
+            console.log(ex);
+            return ApiResponse.error(res, null, HTTP_CODE.ERROR, MESSAGE.ERROR);
+        }
+    }
+
     @httpPost("")
     private async createCart(@request() req: RequestCustom, @response() res: Response) {
         try {
@@ -66,6 +81,7 @@ export class CartController {
             subtotalAmount: cartEntity.subTotal,
             taxAmount: cartEntity.tax,
             totalAmount: cartEntity.totalCost,
+            cartStatus: cartEntity.cartStatus,
             cartItems: cartEntity.items.map(item => ({
                 productId: item.product.id,
                 itemTitle: item.product.title,

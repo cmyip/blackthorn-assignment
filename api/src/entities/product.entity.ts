@@ -1,5 +1,6 @@
 import {CoreEntity} from "./core.entity";
-import {Column, Entity, OneToMany, PrimaryGeneratedColumn, Unique} from "typeorm";
+import {Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, Unique} from "typeorm";
+import {EventEntity} from "./event.entity";
 
 @Entity("products", {orderBy: {id: "ASC"}})
 export class ProductEntity extends CoreEntity {
@@ -26,4 +27,7 @@ export class ProductEntity extends CoreEntity {
 
     @Column({nullable: true})
     salesEndDate: Date;
+
+    @ManyToOne(() => EventEntity, event => event.products)
+    event: EventEntity;
 }

@@ -21,7 +21,7 @@ export class BaseRepository<T extends BaseEntity> implements IBaseRepository<T> 
         if (!existEntity) {
             throw new Error("Cannot find entity");
         }
-        this.baseRepository.update(id, data);
+        await this.baseRepository.update(id, data);
     }
 
     async getAll(options?: FindManyOptions<T>): Promise<T[]> {
@@ -37,6 +37,6 @@ export class BaseRepository<T extends BaseEntity> implements IBaseRepository<T> 
         if (!existEntity) {
             throw new Error("Cannot find entity");
         }
-        this.baseRepository.delete(id);
+        await this.baseRepository.delete(id);
     }
 }

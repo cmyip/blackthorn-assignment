@@ -6,6 +6,7 @@ export interface CartDto {
   subtotalAmount: number;
   taxAmount: number;
   totalAmount: number;
+  cartStatus: string;
   cartItems: {
     productId: number,
     itemTitle: string,

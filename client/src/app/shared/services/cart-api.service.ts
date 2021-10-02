@@ -9,35 +9,27 @@ import {Injectable} from "@angular/core";
 import {CartServiceProxy} from "@approot/shared/services/service-proxies/cart.service-proxy";
 import {debounce} from "rxjs/operators";
 import {CartQuantityDto} from "@approot/shared/services/dtos/cart-quantity.dto";
+import {AttendeesDto} from "@approot/shared/services/dtos/attendees.dto";
+import {AttendeesServiceProxy} from "@approot/shared/services/service-proxies/attendees.service-proxy";
 
 @Injectable()
 export class CartApiService implements CartService {
   cartSummary$ = new BehaviorSubject<CartDto>(null);
   productList$ = new BehaviorSubject<ProductItem[]>([]);
+  attendeesList$ = new BehaviorSubject<AttendeesDto[]>([]);
   productsListLoading$ = new BehaviorSubject(false);
   cartSummaryIsLoading$ = new BehaviorSubject(false);
+  attendeesListIsLoading$ = new BehaviorSubject(false);
 
-  cartUpdateEvents$ = new BehaviorSubject<CartQuantityDto[]>(null);
-
-  constructor(private productsProxy: ProductsServiceProxy, private cartProxy: CartServiceProxy) {
-    // this.listenForCartUpdates();
+  constructor(private productsProxy: ProductsServiceProxy,
+              private cartProxy: CartServiceProxy,
+              private attendeesProxy: AttendeesServiceProxy) {
   }
 
-  private listenForCartUpdates(): void {
-    this.cartUpdateEvents$
-      .pipe(debounce(() => interval(1000)))
-      .subscribe(async (cartUpdate) => {
-        console.log("Requesting for cart updates");
-        const cartSummary = await this.cartProxy.updateCart(this.cartSummary$.value.cartCode, cartUpdate);
-        console.log("Cart update returned");
-        this.cartSummary$.next(cartSummary);
-    });
-  }
-
-  async refreshProducts(): Promise<[boolean, string?]> {
+  async refreshProducts(eventId): Promise<[boolean, string?]> {
     this.productsListLoading$.next(true);
     try {
-      const products = await this.productsProxy.getProducts();
+      const products = await this.productsProxy.getProducts(eventId);
       this.productList$.next(products);
     } catch (exception) {
       console.error(exception);
@@ -81,9 +73,15 @@ export class CartApiService implements CartService {
 
   async getCartByCode(cartCode: string): Promise<CartDto> {
     console.log(`Loading cart with code ${cartCode}`);
-    const cartData = await this.cartProxy.getCart(cartCode);
-    this.cartSummary$.next(cartData);
-    return cartData;
+    try {
+      const cartData = await this.cartProxy.getCart(cartCode);
+      this.cartSummary$.next(cartData);
+      return cartData;
+    } catch (exception) {
+      this.clearCartCode();
+      const [result, cartInfo] = await this.createCart();
+      return this.cartSummary$.value;
+    }
   }
 
   async createCart(): Promise<[boolean, string]> {
@@ -95,17 +93,13 @@ export class CartApiService implements CartService {
   }
 
   async loadCart(): Promise<[boolean, string]> {
-    const existingCartCode = localStorage.getItem(LocalStorageConstants.CART_CODE);
+    const existingCartCode = this.getCartCode();
     if (!existingCartCode) {
-      const cart = await this.createCart();
+      await this.createCart();
     } else {
       await this.getCartByCode(existingCartCode);
     }
     return Promise.resolve([true, null]);
-  }
-
-  private storeCartCode(cart): void {
-    localStorage.setItem(LocalStorageConstants.CART_CODE, cart.cartCode);
   }
 
   getCartQuantityById(id: number): number {
@@ -118,5 +112,42 @@ export class CartApiService implements CartService {
     if (!this.cartSummary$.value) { return 0; }
     const currentItem = this.cartSummary$.value.cartItems.find(i => i.productId == id);
     return currentItem && currentItem.amount;
+  }
+
+  async refreshAttendees(): Promise<boolean> {
+    const cartCode = this.getCartCode();
+    this.attendeesListIsLoading$.next(true);
+    try {
+      const attendees = await this.attendeesProxy.getAttendees(cartCode);
+      this.attendeesList$.next(attendees);
+      this.attendeesListIsLoading$.next(false);
+      return true;
+    } catch (exception) {
+      return false;
+    }
+  }
+
+  updateAttendees(attendeeList: AttendeesDto[]): Promise<AttendeesDto[]> {
+    const cartCode = this.getCartCode();
+    return this.attendeesProxy.updateAttendees(cartCode, attendeeList);
+  }
+
+  async checkoutCart(): Promise<CartDto> {
+    const cartCode = this.getCartCode();
+    const newCartInfo = await this.cartProxy.checkoutCart(cartCode);
+    this.cartSummary$.next(newCartInfo);
+    return newCartInfo;
+  }
+
+  private getCartCode(): string {
+    return localStorage.getItem(LocalStorageConstants.CART_CODE);
+  }
+
+  private storeCartCode(cart): void {
+    localStorage.setItem(LocalStorageConstants.CART_CODE, cart.cartCode);
+  }
+
+  private clearCartCode(): void {
+    localStorage.removeItem(LocalStorageConstants.CART_CODE);
   }
 }
