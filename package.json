@@ -9,11 +9,12 @@
     "license": "MIT",
     "scripts": {
         "build": "cd api && npm run build",
-        "start": "cd api && npm run serve"
+        "start": "cd api && npm run start"
     },
     "dependencies": {
         "@types/cors": "^2.8.8",
         "@types/uuid": "^8.3.1",
+        "@types/node": "^12.19.4",
         "async": "^3.1.0",
         "bcrypt": "^5.0.0",
         "bluebird": "^3.5.5",
@@ -52,7 +53,6 @@
         "@types/express-session": "^1.15.14",
         "@types/jest": "^24.9.1",
         "@types/jsonwebtoken": "^8.5.0",
-        "@types/node": "^12.19.4",
         "@types/request": "^2.48.3",
         "@types/request-promise": "^4.1.44",
         "@types/supertest": "^2.0.8",
