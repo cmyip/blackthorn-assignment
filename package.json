@@ -9,7 +9,7 @@
     "license": "MIT",
     "scripts": {
         "build": "cd api && npm run build",
-        "start": "cd api && npm run start"
+        "start": "cd api && npm run serve"
     },
     "dependencies": {
         "@types/cors": "^2.8.8",
