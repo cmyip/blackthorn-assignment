@@ -1,4 +1,5 @@
 # Events Assignment
+This is deliverable for assignments
 
 ## Prerequisites:
 * PostgreSQL (>10)
@@ -6,7 +7,7 @@
 * Angular `@angular/cli`
 
 # Database Design
-![](relationship-diagram.png)
+![](docs/relationship-diagram.png)
 
 # Database Management
 - database is generated using TypeORM, using the commands below
@@ -22,9 +23,11 @@ API documentation with sample is available on [Postman](https://documenter.getpo
 
 # User Interface
 - 1- View event detail page
+ 
 ![img.png](docs/img.png)
-- 
+
 - 2- Register an event
+
 ![img.png](docs/ui2.png)
 
 # Setting up development environment
