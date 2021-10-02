@@ -10,6 +10,7 @@ import "./controllers/event.controller";
 import container from "./ioc-config/config";
 import bindRepositories from "./ioc-config/repositories.bind";
 import { corsMiddleware } from "./middlewares/cors";
+import express from "express";
 import logger from "./utils/logger";
 import CONFIG from "./config";
 
@@ -26,9 +27,15 @@ async function createApp() {
     server.setConfig((app) => {
         logger.info("database connection created");
         // Express configuration
+        app.use(express.static(__dirname + "../../../public/"));
         app.use(bodyParser.json());
         app.use(corsMiddleware);
         app.use(bodyParser.urlencoded({extended: true}));
+        app.use((req, res, next) => {
+            if (!req.route)
+                res.sendFile("index.html", {root: __dirname + "../../../public/"});
+            next();
+        });
     });
     return server.build();
 }

@@ -16,7 +16,6 @@ import {CartDto} from "@approot/shared/services/dtos/cart.dto";
 import {ActivatedRoute, Route, Router} from "@angular/router";
 import {EventsService} from "@approot/shared/services/events.service";
 import {EventDto} from "@approot/shared/services/dtos/event.dto";
-import {once} from "cluster";
 import {filter, first} from "rxjs/operators";
 
 @Component({
