@@ -7,6 +7,7 @@ module.exports = {
     database: process.env.DB_NAME || "test_db",
     charset: "utf8",
     driver: "postgres",
+    ssl: !!process.env.DB_SSL,
     synchronize: process.env.NODE_ENV !== "production",
     entities:[
         "**/**.entity.ts"
