@@ -1,8 +1,6 @@
 import {inject, injectable} from "inversify";
 import {REPOSITORY_TYPES} from "../src/ioc-config/types";
 import {ISeeder} from "./i.seeder";
-import {ProductTypeConstants} from "events-domain/constants/catalog-item-type.constants";
-import {IProductRepository} from "../src/repositories/i.product.repository";
 import {EventEntity, EventStatus} from "../src/entities/event.entity";
 import {Repository} from "typeorm";
 

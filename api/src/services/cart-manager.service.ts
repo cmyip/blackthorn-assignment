@@ -8,7 +8,7 @@ import {CartItemEntity} from "../entities/cart-item.entity";
 import {ICartRepository} from "../repositories/i.cart.repository";
 import {IProductRepository} from "../repositories";
 import {v4 as uuidv4} from "uuid";
-import {ProductTypeConstants} from "events-domain/constants/catalog-item-type.constants";
+import {ProductTypeConstants} from "../constants/catalog-item-type.constants";
 import {IAttendeeRepository} from "../repositories/i.attendee.repository";
 import {AttendeeEntity, AttendeeType} from "../entities/attendees.entity";
 import {AttendeeUpdateDto} from "../dto/attendee-update.dto";
