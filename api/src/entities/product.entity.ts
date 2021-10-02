@@ -30,4 +30,7 @@ export class ProductEntity extends CoreEntity {
 
     @ManyToOne(() => EventEntity, event => event.products)
     event: EventEntity;
+
+    @Column()
+    eventId: number;
 }

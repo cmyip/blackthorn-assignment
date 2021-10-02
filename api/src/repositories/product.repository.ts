@@ -19,4 +19,10 @@ export class ProductRepository extends BaseRepository<ProductEntity> implements 
             where: {isActive: true}
         });
     }
+
+    getByEvent(eventId: number): Promise<ProductEntity[]> {
+        return this.productRepository.find({
+            where: { eventId: eventId }
+        });
+    }
 }

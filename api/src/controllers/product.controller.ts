@@ -17,7 +17,9 @@ export class ProductController {
     @httpGet("")
     private async getAll(@request() req: RequestCustom, @response() res: Response) {
         try {
-            const products = await this.productRepository.getActiveProducts(new Date());
+            const { query } = req;
+            const { eventId } = query;
+            const products = await this.productRepository.getByEvent(Number(eventId));
             const productsDto = products.map(prod => DtoMapper.MapToDto(prod, new ProductListingDto()));
             return ApiResponse.success(res, productsDto, HTTP_CODE.SUCCESS, MESSAGE.SUCCESS);
         } catch (ex) {
