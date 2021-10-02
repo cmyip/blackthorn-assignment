@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>879c00ee-9918-4fa4-b4ce-ba21d272443c.TABLE:eventdb.public.attendees</OriginalElement>
+  <nodes>
+    <node x="0.0" y="0.0">879c00ee-9918-4fa4-b4ce-ba21d272443c.TABLE:eventdb.public.events</node>
+    <node x="44.0" y="676.0">879c00ee-9918-4fa4-b4ce-ba21d272443c.TABLE:eventdb.public.cart_items</node>
+    <node x="4.0" y="283.0">879c00ee-9918-4fa4-b4ce-ba21d272443c.TABLE:eventdb.public.products</node>
+    <node x="270.5" y="316.0">879c00ee-9918-4fa4-b4ce-ba21d272443c.TABLE:eventdb.public.carts</node>
+    <node x="238.0" y="632.0">879c00ee-9918-4fa4-b4ce-ba21d272443c.TABLE:eventdb.public.attendees</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="879c00ee-9918-4fa4-b4ce-ba21d272443c.TABLE:eventdb.public.attendees" target="879c00ee-9918-4fa4-b4ce-ba21d272443c.TABLE:eventdb.public.carts" relationship="REFERENCES">
+      <point x="0.0" y="-149.5" />
+      <point x="0.0" y="116.5" />
+    </edge>
+    <edge source="879c00ee-9918-4fa4-b4ce-ba21d272443c.TABLE:eventdb.public.cart_items" target="879c00ee-9918-4fa4-b4ce-ba21d272443c.TABLE:eventdb.public.products" relationship="REFERENCES">
+      <point x="-43.5" y="-105.5" />
+      <point x="0.0" y="149.5" />
+    </edge>
+    <edge source="879c00ee-9918-4fa4-b4ce-ba21d272443c.TABLE:eventdb.public.products" target="879c00ee-9918-4fa4-b4ce-ba21d272443c.TABLE:eventdb.public.events" relationship="REFERENCES">
+      <point x="0.0" y="-149.5" />
+      <point x="0.0" y="116.5" />
+    </edge>
+    <edge source="879c00ee-9918-4fa4-b4ce-ba21d272443c.TABLE:eventdb.public.cart_items" target="879c00ee-9918-4fa4-b4ce-ba21d272443c.TABLE:eventdb.public.carts" relationship="REFERENCES">
+      <point x="43.5" y="-105.5" />
+      <point x="174.5" y="607.0" />
+      <point x="375.5" y="607.0" />
+      <point x="0.0" y="116.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.9232386961093586" showDependencies="false" x="256.5" y="465.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Columns</Category>
+    <Category>Key columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+

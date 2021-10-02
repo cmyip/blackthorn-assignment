@@ -5,6 +5,29 @@
 * NodeJS
 * Angular `@angular/cli`
 
+# Database Design
+![](relationship-diagram.png)
+
+# Database Management
+- database is generated using TypeORM, using the commands below
+- Generate migration
+- `cd api && npm run migration:generate migrationname`
+- Run the migration
+- `cd api && npm run migration:run`
+- Create the product seeds
+- `cd api && npm run seed:run`
+
+# API Documentation
+API documentation with sample is available on [Postman](https://documenter.getpostman.com/view/574536/UUy39SPQ)
+
+# User Interface
+- 1- View event detail page
+![img.png](docs/img.png)
+- 
+- 2- Register an event
+![img.png](docs/ui2.png)
+
+# Setting up development environment
 ## Set up API:
 - cd api
 - Configure environment variables `cp .env.example .env`
